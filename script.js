@@ -7,7 +7,7 @@ let audioBox = document.querySelector(".audio");
 let loading = document.querySelector(".loading");
 
 // API key for accessing the Merriam-Webster Dictionary API
-let apiKey = "66f7014d-d83e-41f7-adc8-6b590ef46bf8";
+let apiKey = "your api key"
 
 // Event listener for the search button
 searchBtn.addEventListener("click", function (e) {
