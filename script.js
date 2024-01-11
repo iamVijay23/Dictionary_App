@@ -1,3 +1,4 @@
+
 // Selecting DOM elements
 let input = document.querySelector("#input");
 let searchBtn = document.querySelector("#searchBtn");
