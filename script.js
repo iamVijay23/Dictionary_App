@@ -5,9 +5,10 @@ let notFound = document.querySelector("#notFound");
 let def = document.querySelector(".def");
 let audioBox = document.querySelector(".audio");
 let loading = document.querySelector(".loading");
+let copyBtn = document.querySelector("#copy-btn");
 
 // API key for accessing the Merriam-Webster Dictionary API
-let apiKey = "your api key"
+let apiKey = "66f7014d-d83e-41f7-adc8-6b590ef46bf8";
 
 // Event listener for the search button
 searchBtn.addEventListener("click", function (e) {
@@ -25,13 +26,12 @@ searchBtn.addEventListener("click", function (e) {
   // Perform API call to get data for the entered word
   getData(word);
 
-  // Clearing The Data after 15 seconds
-  setTimeout(function () {
-    audioBox.innerHTML = "";
-    notFound.innerText = "";
-    def.innerText = "";
-    input.value = " ";
-  }, 15000);
+  // Clearing The Data after 60 seconds
+
+  audioBox.innerHTML = "";
+  notFound.innerText = "";
+  def.innerText = "";
+  copyBtn.style.display = "none";
 });
 
 // Function to fetch data from the Merriam-Webster Dictionary API
@@ -76,8 +76,9 @@ async function getData(word) {
   }
 
   // If a result is found
-  // Hide loading indicator 
+  // Hide loading indicator
   loading.style.display = "none";
+  copyBtn.style.display = "block";
   // Get the definition and display it
   let definition = data[0].shortdef[0];
   def.innerText = definition;
@@ -103,3 +104,35 @@ function renderSound(soundName) {
   // Append the audio element to the audioBox
   audioBox.appendChild(audio);
 }
+
+// As The CopyBtn is clicked
+// Add an event listener to the "copyBtn" button
+copyBtn.addEventListener("click", function () {
+  // Check if the 'def' element exists
+  if (!def) {
+    console.error("Element 'def' not found");
+    return;
+  }
+
+  // Create a range and select the text content of the 'def' element
+  let range = document.createRange();
+  range.selectNode(def);
+
+  // Get the current selection and remove any existing ranges
+  let selection = window.getSelection();
+  selection.removeAllRanges();
+  selection.addRange(range);
+
+  // Execute the copy command
+  document.execCommand("copy");
+
+  // Deselect the text
+  selection.removeAllRanges();
+
+  // Display a Toast Notification using Toastify
+  Toastify({
+    text: "Text Copied",  // Message to display in the toast
+    gravity: "top", // `top` or `bottom`
+  position: "right", // `left`, `center` or `right`     
+  }).showToast();
+});
