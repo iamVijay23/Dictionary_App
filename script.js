@@ -100,7 +100,7 @@ function renderSound(soundName) {
   // Create an audio element and set its attributes
   let audio = document.createElement("audio");
   audio.src = soundSrc;
-  audio.controls = true;
+   audio.controls = true;
 
   // Append the audio element to the audioBox
   audioBox.appendChild(audio);
